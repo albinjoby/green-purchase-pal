@@ -1,9 +1,11 @@
 
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { products } from "@/lib/data";
+import { products, getLowerImpactAlternatives, getSimilarProducts } from "@/lib/data";
 import SustainabilityScore from "@/components/SustainabilityScore";
-import { ArrowLeft, ShoppingCart, Leaf, Share2, Heart, BarChart3, Truck, Package } from "lucide-react";
+import { ArrowLeft, ShoppingCart, Leaf, Share2, Heart, BarChart3, Truck, Package, ThumbsUp } from "lucide-react";
+import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -11,16 +13,28 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeImage, setActiveImage] = useState(product?.image || "");
   
-  // Recommended products (excluding current product)
-  const recommendedProducts = products
-    .filter(p => p.id !== id && p.category === product?.category)
-    .slice(0, 3);
-
+  // Get both better alternatives and similar products with lower scores
+  const betterAlternatives = product ? getLowerImpactAlternatives(product) : [];
+  const similarProducts = product ? getSimilarProducts(product) : [];
+  
   // Scroll to top when product changes
   useEffect(() => {
     window.scrollTo(0, 0);
     setProduct(products.find(p => p.id === id));
+    if (product) {
+      setActiveImage(product.image);
+    }
   }, [id]);
+
+  const handleAddToCart = () => {
+    toast.success(`Added ${quantity} × ${product?.name} to your cart`, {
+      description: "Your selection has been added to the cart",
+      action: {
+        label: "View Cart",
+        onClick: () => console.log("View cart clicked")
+      }
+    });
+  };
 
   if (!product) {
     return (
@@ -86,9 +100,9 @@ const ProductDetail = () => {
           {/* Product Info */}
           <div className="animate-slide-left opacity-0">
             <div className="flex items-center mb-2">
-              <span className="text-sm bg-eco-100 text-eco-800 px-3 py-1 rounded-full font-medium">
+              <Badge variant="outline" className="bg-eco-50 text-eco-800 border-eco-200">
                 {product.category}
-              </span>
+              </Badge>
               <div className="ml-auto flex items-center space-x-2">
                 <button className="p-2 text-muted-foreground hover:text-foreground rounded-full">
                   <Share2 className="h-5 w-5" />
@@ -159,7 +173,10 @@ const ProductDetail = () => {
             
             {/* Add to Cart */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <button className="flex-1 bg-eco-600 text-white font-medium py-3 px-6 rounded-lg hover:bg-eco-700 transition-colors flex items-center justify-center">
+              <button 
+                className="flex-1 bg-eco-600 text-white font-medium py-3 px-6 rounded-lg hover:bg-eco-700 transition-colors flex items-center justify-center"
+                onClick={handleAddToCart}
+              >
                 <ShoppingCart className="mr-2 h-5 w-5" />
                 Add to Cart
               </button>
@@ -202,34 +219,95 @@ const ProductDetail = () => {
           </div>
         </div>
         
-        {/* Recommended Products */}
-        {recommendedProducts.length > 0 && (
-          <div className="animate-slide-up opacity-0" style={{ animationDelay: "0.3s" }}>
-            <h2 className="text-2xl font-bold mb-4">You May Also Like</h2>
+        {/* Better Alternatives Section */}
+        {betterAlternatives.length > 0 && (
+          <div className="mb-16 animate-slide-up opacity-0" style={{ animationDelay: "0.3s" }}>
+            <div className="flex items-center mb-4">
+              <h2 className="text-2xl font-bold">More Sustainable Options</h2>
+              <ThumbsUp className="ml-2 h-5 w-5 text-eco-600" />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recommendedProducts.map((recommendedProduct) => (
-                <Link key={recommendedProduct.id} to={`/products/${recommendedProduct.id}`}>
-                  <div className="group relative bg-card overflow-hidden rounded-xl border border-border transition-all duration-300 hover:shadow-lg">
+              {betterAlternatives.map((alternative) => (
+                <Link key={alternative.id} to={`/products/${alternative.id}`}>
+                  <div className="group relative bg-card overflow-hidden rounded-xl border border-eco-200 transition-all duration-300 hover:shadow-lg hover:border-eco-400">
+                    <div className="absolute top-0 left-0 z-10 m-2">
+                      <Badge className="bg-eco-500 hover:bg-eco-600">Eco Swap Choice</Badge>
+                    </div>
                     <div className="aspect-square overflow-hidden">
                       <img 
-                        src={recommendedProduct.image} 
-                        alt={recommendedProduct.name}
+                        src={alternative.image} 
+                        alt={alternative.name}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute top-2 right-2">
-                        <SustainabilityScore score={recommendedProduct.sustainabilityScore} size="sm" />
+                        <SustainabilityScore score={alternative.sustainabilityScore} size="sm" />
                       </div>
                     </div>
                     <div className="p-4">
                       <h3 className="font-medium leading-tight transition-colors group-hover:text-eco-600">
-                        {recommendedProduct.name}
+                        {alternative.name}
                       </h3>
                       <div className="flex justify-between items-center mt-2">
-                        <p className="font-bold">${recommendedProduct.price.toFixed(2)}</p>
+                        <p className="font-bold">${alternative.price.toFixed(2)}</p>
                         <div className="flex items-center space-x-1 text-sm text-muted-foreground">
                           <Leaf className="h-4 w-4 text-eco-500" />
-                          <span>{recommendedProduct.carbonFootprint} kg CO₂</span>
+                          <span>{alternative.carbonFootprint} kg CO₂</span>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {/* Similar Products Section */}
+        {similarProducts.length > 0 && (
+          <div className="animate-slide-up opacity-0" style={{ animationDelay: "0.4s" }}>
+            <h2 className="text-2xl font-bold mb-4">Compare With Similar Items</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {similarProducts.map((similar) => (
+                <Link key={similar.id} to={`/products/${similar.id}`}>
+                  <div className="group relative bg-card overflow-hidden rounded-xl border border-border transition-all duration-300 hover:shadow-lg">
+                    {similar.sustainabilityScore < product.sustainabilityScore && (
+                      <div className="absolute top-0 left-0 z-10 m-2">
+                        <Badge variant="outline" className="bg-orange-50 text-orange-700 border-orange-200">
+                          Higher Impact
+                        </Badge>
+                      </div>
+                    )}
+                    <div className="aspect-square overflow-hidden">
+                      <img 
+                        src={similar.image} 
+                        alt={similar.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute top-2 right-2">
+                        <SustainabilityScore score={similar.sustainabilityScore} size="sm" />
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-medium leading-tight transition-colors group-hover:text-eco-600">
+                        {similar.name}
+                      </h3>
+                      <div className="flex justify-between items-center mt-2">
+                        <p className="font-bold">${similar.price.toFixed(2)}</p>
+                        <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+                          <Leaf className="h-4 w-4 text-eco-500" />
+                          <span>{similar.carbonFootprint} kg CO₂</span>
+                        </div>
+                      </div>
+                      <div className="mt-2 text-sm">
+                        {similar.sustainabilityScore < product.sustainabilityScore ? (
+                          <div className="text-orange-600 flex items-center">
+                            <span>{(product.sustainabilityScore - similar.sustainabilityScore).toFixed(1)} points lower eco score</span>
+                          </div>
+                        ) : (
+                          <div className="text-eco-600 flex items-center">
+                            <span>{(similar.sustainabilityScore - product.sustainabilityScore).toFixed(1)} points higher eco score</span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

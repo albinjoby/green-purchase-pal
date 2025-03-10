@@ -1,5 +1,6 @@
 
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface SustainabilityScoreProps {
   score: number;
@@ -30,15 +31,25 @@ const SustainabilityScore = ({
 
   return (
     <div className={cn("flex flex-col items-center", className)}>
-      <div 
-        className={cn(
-          "rounded-full flex items-center justify-center font-medium text-white", 
-          getColor(score),
-          sizeClasses[size]
-        )}
-      >
-        {score.toFixed(1)}
-      </div>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div 
+              className={cn(
+                "rounded-full flex items-center justify-center font-medium text-white cursor-help", 
+                getColor(score),
+                sizeClasses[size]
+              )}
+            >
+              {score.toFixed(1)}
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side="top">
+            <p>Sustainability score: {score.toFixed(1)}/10</p>
+            <p className="text-xs text-muted-foreground">Higher is better for the environment</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       {showLabel && (
         <span className="mt-1 text-xs text-muted-foreground">
           Eco Score

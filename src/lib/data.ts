@@ -15,18 +15,6 @@ export type Product = {
 export const products: Product[] = [
   {
     id: "1",
-    name: "Eco-Friendly Water Bottle",
-    description: "Reusable stainless steel water bottle that keeps drinks cold for 24 hours or hot for 12 hours. Made from recycled materials and is 100% recyclable.",
-    price: 35,
-    image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
-    category: "Home",
-    sustainabilityScore: 9.5,
-    carbonFootprint: 2.3,
-    materials: ["Recycled Stainless Steel", "BPA-free Plastic"],
-    featured: true
-  },
-  {
-    id: "2",
     name: "Organic Cotton T-Shirt",
     description: "Classic fit t-shirt made from 100% organic cotton. Grown without harmful pesticides and chemicals.",
     price: 29.99,
@@ -38,81 +26,120 @@ export const products: Product[] = [
     featured: true
   },
   {
+    id: "2",
+    name: "Recycled Denim Jeans",
+    description: "Stylish jeans made from recycled denim and organic cotton blend. Helps reduce textile waste.",
+    price: 89.99,
+    image: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    category: "Clothing",
+    sustainabilityScore: 7.9,
+    carbonFootprint: 5.6,
+    materials: ["Recycled Denim", "Organic Cotton"],
+    featured: true
+  },
+  {
     id: "3",
-    name: "Bamboo Toothbrush Set",
-    description: "Pack of 4 biodegradable toothbrushes with bamboo handles and plant-based bristles.",
-    price: 12.99,
-    image: "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
-    category: "Personal Care",
-    sustainabilityScore: 9.8,
-    carbonFootprint: 0.8,
-    materials: ["Bamboo", "Plant-based Nylon"],
+    name: "Sustainable Wool Sweater",
+    description: "Cozy sweater made from ethically sourced wool with a focus on animal welfare and sustainable farming.",
+    price: 79.99,
+    image: "https://images.unsplash.com/photo-1621072156002-e2fccdc0b176?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    category: "Clothing",
+    sustainabilityScore: 8.2,
+    carbonFootprint: 4.8,
+    materials: ["Ethical Wool", "Recycled Polyester"],
     featured: true
   },
   {
     id: "4",
-    name: "Solar Power Bank",
-    description: "10,000mAh power bank with built-in solar panel for eco-friendly charging on the go.",
-    price: 49.99,
-    image: "https://images.unsplash.com/photo-1593941707882-a5bfcf2dd2a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
-    category: "Electronics",
-    sustainabilityScore: 7.9,
-    carbonFootprint: 6.2,
-    materials: ["Recycled Plastic", "Silicon Solar Cells", "Lithium Ion Battery"]
+    name: "Vegan Leather Jacket",
+    description: "Stylish leather alternative jacket made from plant-based materials with a lower environmental impact.",
+    price: 129.99,
+    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    category: "Clothing",
+    sustainabilityScore: 7.5,
+    carbonFootprint: 6.7,
+    materials: ["Plant-based Leather", "Organic Cotton Lining"],
+    featured: false
   },
   {
     id: "5",
-    name: "Recycled Paper Notebook",
-    description: "A5 notebook made from 100% post-consumer recycled paper with soy-based ink printing.",
-    price: 14.99,
-    image: "https://images.unsplash.com/photo-1531346878377-a5be20888e57?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
-    category: "Office",
-    sustainabilityScore: 9.2,
-    carbonFootprint: 1.5,
-    materials: ["Recycled Paper", "Soy-based Ink"]
+    name: "Hemp Canvas Sneakers",
+    description: "Casual sneakers made from durable hemp canvas and natural rubber. Biodegradable and stylish.",
+    price: 69.99,
+    image: "https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    category: "Footwear",
+    sustainabilityScore: 9.0,
+    carbonFootprint: 3.2,
+    materials: ["Hemp Canvas", "Natural Rubber", "Organic Cotton"],
+    featured: false
   },
   {
     id: "6",
-    name: "Plant-Based Cleaning Kit",
-    description: "Set of 3 all-purpose cleaners made from plant-based ingredients in reusable glass bottles.",
-    price: 32.99,
-    image: "https://images.unsplash.com/photo-1563453392212-326f5e854473?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
-    category: "Home",
-    sustainabilityScore: 9.6,
-    carbonFootprint: 1.8,
-    materials: ["Plant Extracts", "Essential Oils", "Glass", "Silicone"]
+    name: "Bamboo Fiber Socks",
+    description: "Ultra-soft socks made from bamboo fiber that requires less water and no pesticides to grow.",
+    price: 14.99,
+    image: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    category: "Clothing",
+    sustainabilityScore: 9.4,
+    carbonFootprint: 1.9,
+    materials: ["Bamboo Fiber", "Organic Cotton"],
+    featured: false
   },
   {
     id: "7",
-    name: "Biodegradable Phone Case",
-    description: "Protective phone case made from biodegradable materials that will break down safely after disposal.",
-    price: 24.99,
-    image: "https://images.unsplash.com/photo-1622467827417-bbe2237067a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
-    category: "Electronics",
-    sustainabilityScore: 8.5,
-    carbonFootprint: 3.2,
-    materials: ["Bioplastic", "Wheat Straw"]
+    name: "Recycled Polyester Backpack",
+    description: "Durable backpack made from recycled plastic bottles with waterproof finish.",
+    price: 59.99,
+    image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    category: "Accessories",
+    sustainabilityScore: 8.1,
+    carbonFootprint: 5.0,
+    materials: ["Recycled Polyester", "Organic Cotton Trim"],
+    featured: false
   },
   {
     id: "8",
-    name: "Recycled Wool Blanket",
-    description: "Cozy blanket made from recycled wool and organic cotton, perfect for chilly evenings.",
-    price: 89.99,
-    image: "https://images.unsplash.com/photo-1580301762395-83a1d3207511?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
-    category: "Home",
-    sustainabilityScore: 8.8,
-    carbonFootprint: 5.4,
-    materials: ["Recycled Wool", "Organic Cotton"]
+    name: "Tencel Lyocell Dress",
+    description: "Flowing summer dress made from Tencel, a sustainable fabric derived from wood pulp from managed forests.",
+    price: 99.99,
+    image: "https://images.unsplash.com/photo-1612722432474-b971cdcea546?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    category: "Clothing",
+    sustainabilityScore: 8.9,
+    carbonFootprint: 3.5,
+    materials: ["Tencel Lyocell", "Organic Cotton"],
+    featured: false
+  },
+  {
+    id: "9",
+    name: "Cork Wallet",
+    description: "Slim, durable wallet made from sustainable cork - a renewable resource that doesn't require tree cutting.",
+    price: 39.99,
+    image: "https://images.unsplash.com/photo-1606922130735-261735e1b48c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    category: "Accessories",
+    sustainabilityScore: 9.7,
+    carbonFootprint: 1.2,
+    materials: ["Cork", "Organic Cotton"],
+    featured: false
+  },
+  {
+    id: "10",
+    name: "Linen Button-Up Shirt",
+    description: "Breathable linen shirt that requires less water and energy to produce than conventional cotton.",
+    price: 74.99,
+    image: "https://images.unsplash.com/photo-1598961942613-ba897716405b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    category: "Clothing",
+    sustainabilityScore: 8.6,
+    carbonFootprint: 3.9,
+    materials: ["Linen", "Corozo Nut Buttons"],
+    featured: false
   }
 ];
 
 export const categories = [
   { id: "all", name: "All Products" },
-  { id: "home", name: "Home" },
   { id: "clothing", name: "Clothing" },
-  { id: "personal-care", name: "Personal Care" },
-  { id: "electronics", name: "Electronics" },
-  { id: "office", name: "Office" }
+  { id: "footwear", name: "Footwear" },
+  { id: "accessories", name: "Accessories" }
 ];
 
 export const filterByCategory = (products: Product[], category: string): Product[] => {
@@ -137,4 +164,47 @@ export const sortProducts = (products: Product[], sortBy: string): Product[] => 
     default:
       return productsCopy;
   }
+};
+
+// Get more sustainable alternatives to a product
+export const getLowerImpactAlternatives = (product: Product): Product[] => {
+  if (!product) return [];
+  
+  return products
+    .filter(p => 
+      // Same category but different product
+      p.id !== product.id && 
+      p.category === product.category &&
+      // Better or equal sustainability score
+      p.sustainabilityScore >= product.sustainabilityScore
+    )
+    .sort((a, b) => b.sustainabilityScore - a.sustainabilityScore)
+    .slice(0, 3);
+};
+
+// Get similar products with lower scores for comparison
+export const getSimilarProducts = (product: Product): Product[] => {
+  if (!product) return [];
+  
+  return products
+    .filter(p => 
+      // Same category but different product
+      p.id !== product.id && 
+      p.category === product.category
+    )
+    .sort((a, b) => {
+      // First prioritize products with lower scores
+      if (a.sustainabilityScore < product.sustainabilityScore && 
+          b.sustainabilityScore >= product.sustainabilityScore) {
+        return -1;
+      }
+      if (b.sustainabilityScore < product.sustainabilityScore && 
+          a.sustainabilityScore >= product.sustainabilityScore) {
+        return 1;
+      }
+      // Then sort by score difference (closest first)
+      return Math.abs(a.sustainabilityScore - product.sustainabilityScore) - 
+             Math.abs(b.sustainabilityScore - product.sustainabilityScore);
+    })
+    .slice(0, 3);
 };
